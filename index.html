@@ -99,9 +99,13 @@
     });
 
     let errorBtns = Array.from(document.querySelectorAll('#error-btns > button'));
-
+    console.log("??")
     // Start your code here
     // You may move this JS to another file if you wish
+    errorBtns[0].addEventListener("click", () => {
+      console.log("?")
+      //console.log(document.querySelector('#first-num') + document.querySelector('#operator') + document.querySelector('#second-num'));
+    });
   </script>
 </body>
 
