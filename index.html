@@ -86,7 +86,14 @@
       <button>Trigger a Global Error</button>
     </section>
   </main>
-
+<script src="https://cdn.trackjs.com/agent/v3/latest/t.js"></script>
+<script>
+  window.TrackJS && TrackJS.install({ 
+    token: "7f5184ba22044d92a078229c4c97a593"
+    // for more configuration options, see https://docs.trackjs.com
+  });
+</script>
+                        
   <script>
     let form = document.querySelector('form');
     form.addEventListener('submit', e => {
@@ -98,13 +105,77 @@
       output.innerHTML = eval(`${firstNum} ${operator} ${secondNum}`);
     });
 
+    TrackJS.track('Testing TrackJS!');
+                        
+    class NotNumError extends Error{
+      constructor(message){
+        super(message);
+        this.name = "NotNumError";
+      }
+
+    }
     let errorBtns = Array.from(document.querySelectorAll('#error-btns > button'));
-    console.log("??")
     // Start your code here
     // You may move this JS to another file if you wish
     errorBtns[0].addEventListener("click", () => {
-      console.log("?")
-      //console.log(document.querySelector('#first-num') + document.querySelector('#operator') + document.querySelector('#second-num'));
+      console.log("Demo")
+    });
+    errorBtns[1].addEventListener('click', ()=> {
+      try{
+        let num = errorBtns[14].innerHTML;
+        if(isNaN(num)){
+          throw new NotNumError("the innerHTML of errorBtns[1] is not a number")
+        }
+        num = (num * 5) - 3;
+      }catch(error){
+        console.error(error);
+      }finally{
+        console.log("try/catch was executed");
+      }
+    });
+    errorBtns[2].addEventListener('click', ()=>{
+       console.count("Count");
+    });
+    errorBtns[3].addEventListener('click', ()=>{
+      console.warn("This is a warning message");
+    });
+    errorBtns[4].addEventListener('click', ()=>{
+      console.assert(errorBtns.length < 5, "there are over 5 buttons");
+    });
+    errorBtns[5].addEventListener('click', ()=>{
+      console.clear();
+    });
+    errorBtns[6].addEventListener('click', ()=>{
+      console.dir(document.location);
+    });
+    errorBtns[7].addEventListener('click', ()=>{
+      console.dirxml(document.getElementById('error-btns'));
+    });
+    errorBtns[8].addEventListener('click', ()=>{
+      console.group();
+    });
+    errorBtns[9].addEventListener('click', ()=>{
+      console.groupEnd();
+    });
+    errorBtns[10].addEventListener('click', ()=>{
+      console.table(errorBtns);
+    });
+    errorBtns[11].addEventListener('click', ()=>{
+      console.time();
+    });
+    errorBtns[12].addEventListener('click', ()=>{
+      console.timeEnd();
+    });
+    errorBtns[13].addEventListener('click', ()=>{
+      console.trace();
+    });
+    errorBtns[14].addEventListener('click', ()=>{
+     try{
+      let button = errorBtns[15];
+      button.innerHTML = "button 16";
+     }catch(error){
+      console.log(error);
+     }
     });
   </script>
 </body>
